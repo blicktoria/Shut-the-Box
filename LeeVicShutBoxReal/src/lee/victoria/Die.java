@@ -22,6 +22,8 @@ public class Die {
 		this.numSides = 6;
 		this.value = roll();
 	}
+	//test test test
+	//test test II
 	/**
 	 * 
 	 * @return
