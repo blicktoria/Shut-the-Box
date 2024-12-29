@@ -32,6 +32,7 @@ public class Die {
 		return random.nextInt(numSides)+1;
 	}
 	public int roll2() {
-		return random.nextInt(12)+1;
+		//rolling a minimum of 2, maximum of 12
+		return random.nextInt(11)+2;
 	}
 }
