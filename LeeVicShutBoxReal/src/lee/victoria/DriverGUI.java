@@ -78,6 +78,8 @@ public class DriverGUI extends Application {
 		stage.show();
 		
 		
+		//roll1 die
+		btnRoll.setDisable(true);
 		btnRoll.setOnAction(e -> {
 			faceValue = d.roll();
 			lblValue.setText(String.valueOf(faceValue));
@@ -86,33 +88,38 @@ public class DriverGUI extends Application {
 		rollTwo.setOnAction(e -> {
 			faceValue = d.roll2();
 			lblValue.setText(String.valueOf(faceValue));
+			rollTwo.setDisable(true);
 		});
 		
 		//when buttons are pressed
 		for (Button tile : tileBtns) {
 			tile.setOnAction(e -> {
-				if (tile.getStyle().equals("-fx-background-color:darkgray")) {
+				if (tile.getStyle().equals("-fx-background-color:lightblue")) {
 					tile.setStyle("-fx-background-color:white");
 				}
 				else if (tile.getStyle().equals("-fx-background-color:white")) {
-					tile.setStyle("-fx-background-color:darkgray");
+					tile.setStyle("-fx-background-color:lightblue");
 				}
 			});
 		}
-		
+		//locking in
+		submit.setDisable(true);
 		submit.setOnAction(e -> {
 			int userSubmission = 0;
 			
 			for (int i = 0; i<tileBtns.length; i++) {
-				if (tileBtns[i].getStyle().equals("-fx-background-color:darkgray")) {
+				if (tileBtns[i].getStyle().equals("-fx-background-color:lightblue")) {
 					userSubmission += (i+1);
 				}
 			}
 			if (userSubmission == faceValue) {
 				for (Button tile : tileBtns) {
-					if (tile.getStyle().equals("-fx-background-color:darkgray")) {
+					if (tile.getStyle().equals("-fx-background-color:lightblue")) {
 						tile.setStyle("-fx-background-color:black");
-					}
+						tile.setDisable(true);
+						submit.setDisable(true);
+					}//TODO add invalid message later
+					//TODO check what tiles remain, if  6 and up are lowered then add 1 button
 				}
 			}
 		});
@@ -130,14 +137,14 @@ public class DriverGUI extends Application {
 			dieHolder.getChildren().removeAll(btnRoll, rollTwo, submit, endRound);
 		});
 	
+		
+		
+		
+		//button usability
+		
 	}
 	
-		
-	
-	//i dont know how to use github
-	//help
-	//testing testing 
-	//this comment is from december 27 2024, 12:39 PM
+	//timestamp: dec 29 2024
 	
 	public static void main(String[] args) {
 		launch(args);
