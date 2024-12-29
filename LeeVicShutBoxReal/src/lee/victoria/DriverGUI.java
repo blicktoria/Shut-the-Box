@@ -11,13 +11,17 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class DriverGUI extends Application {
-
+	Die d = new Die();
+	
+	Die d2 = new Die();
+	int faceValue = 0;
+	int finalScore = 0;
 	@Override
 	public void start(Stage stage) throws Exception {
 		// TODO Auto-generated method stub
 		
 		//title page
-		VBox dieHolder = new VBox();
+		VBox dieHolder = new VBox(10);
 		Label title = new Label("Shut the Box");
 		dieHolder.getChildren().add(title);
 		
@@ -31,6 +35,7 @@ public class DriverGUI extends Application {
 		Tile[] tiles = new Tile[9];
 		for (int i = 0 ; i<tileBtns.length; i++) {
 			tileBtns[i] = new Button(String.valueOf(i+1));
+			tileBtns[i].setStyle("-fx-background-color:white");
 			tiles[i] = new Tile(i+1);
 			tileBox.getChildren().add(tileBtns[i]);
 		}
@@ -42,20 +47,28 @@ public class DriverGUI extends Application {
 		
 		
 		//create buttons
-		Button rollTwo = new Button("ROLL 2 DICE");
+		
+		
+		
 		
 		
 		//labelling
-		Button btnRoll = new Button("ROLL DICE");
-		Label result = new Label("Result");
+		Button btnRoll = new Button("ROLL 1 DIE");
+		Button rollTwo = new Button("ROLL 2 DICE");
+		Label result = new Label("ROLL RESULT");
 		Label lblValue = new Label(); // output of results
 		
-		Die d = new Die();
+		Button submit = new Button("LOCK IN");
+		Button endRound = new Button("END ROUND");
 		
-		Die d2 = new Die();
+		Label scoreLabel = new Label("FINAL SCORE");
+		Label score = new Label();
+		
+		
+		
 		//vbox
 		
-		dieHolder.getChildren().addAll(rollTwo, btnRoll, result, lblValue);
+		dieHolder.getChildren().addAll(rollTwo, btnRoll, result, lblValue, submit, endRound);
 		dieHolder.setAlignment(Pos.CENTER);
 	
 	
@@ -64,14 +77,14 @@ public class DriverGUI extends Application {
 		stage.setScene(scene);
 		stage.show();
 		
-		//btnRoll.setOnAction(e -> lblValue.setText(String.valueOf(d.roll())));
+		
 		btnRoll.setOnAction(e -> {
-			int faceValue = d.roll();
+			faceValue = d.roll();
 			lblValue.setText(String.valueOf(faceValue));
 		});
 		
 		rollTwo.setOnAction(e -> {
-			int faceValue = d.roll2();
+			faceValue = d.roll2();
 			lblValue.setText(String.valueOf(faceValue));
 		});
 		
@@ -81,15 +94,45 @@ public class DriverGUI extends Application {
 				if (tile.getStyle().equals("-fx-background-color:darkgray")) {
 					tile.setStyle("-fx-background-color:white");
 				}
-				else {
+				else if (tile.getStyle().equals("-fx-background-color:white")) {
 					tile.setStyle("-fx-background-color:darkgray");
 				}
 			});
 		}
 		
+		submit.setOnAction(e -> {
+			int userSubmission = 0;
+			
+			for (int i = 0; i<tileBtns.length; i++) {
+				if (tileBtns[i].getStyle().equals("-fx-background-color:darkgray")) {
+					userSubmission += (i+1);
+				}
+			}
+			if (userSubmission == faceValue) {
+				for (Button tile : tileBtns) {
+					if (tile.getStyle().equals("-fx-background-color:darkgray")) {
+						tile.setStyle("-fx-background-color:black");
+					}
+				}
+			}
+		});
 		
+		//when user requests to end the round
+		
+		endRound.setOnAction(e -> {
+			for (int i = 0; i<tileBtns.length; i++) {
+				if (!tileBtns[i].getStyle().equals("-fx-background-color:black")) {
+					finalScore += (i+1);
+				}
+			}
+			score.setText(String.valueOf(finalScore));
+			dieHolder.getChildren().addAll(scoreLabel, score);
+			dieHolder.getChildren().removeAll(btnRoll, rollTwo, submit, endRound);
+		});
 	
 	}
+	
+		
 	
 	//i dont know how to use github
 	//help
