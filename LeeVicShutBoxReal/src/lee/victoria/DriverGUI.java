@@ -1,6 +1,7 @@
 package lee.victoria;
 
 import javafx.application.Application;
+
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -73,6 +74,20 @@ public class DriverGUI extends Application {
 			int faceValue = d.roll2();
 			lblValue.setText(String.valueOf(faceValue));
 		});
+		
+		//when buttons are pressed
+		for (Button tile : tileBtns) {
+			tile.setOnAction(e -> {
+				if (tile.getStyle().equals("-fx-background-color:darkgray")) {
+					tile.setStyle("-fx-background-color:white");
+				}
+				else {
+					tile.setStyle("-fx-background-color:darkgray");
+				}
+			});
+		}
+		
+		
 	
 	}
 	
