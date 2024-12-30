@@ -40,12 +40,12 @@ public class DriverGUI extends Application {
 		// creating 9 numbered tiles for the user to click
 		HBox tileBox = new HBox(10);
 		Button[] tileBtns = new Button[9];
-		Tile[] tiles = new Tile[9];
+		//Tile[] tiles = new Tile[9];
 		
 		for (int i = 0; i < tileBtns.length; i++) {
 			tileBtns[i] = new Button(String.valueOf(i + 1));
 			tileBtns[i].setStyle("-fx-background-color:white");
-			tiles[i] = new Tile(i + 1);
+			//tiles[i] = new Tile(i + 1);
 			tileBox.getChildren().add(tileBtns[i]);
 		}
 
